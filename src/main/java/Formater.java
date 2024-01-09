@@ -50,9 +50,10 @@ public class Formater {
     public String checkRes(double numb){
         int a = (int) Math.floor(numb);
         if(a % 10 == 1) {
-            if(a>= 10 && a<=19) return "рублей";
+            if(a % 100 == 11) return "рублей";
             else return "рубль";
         }
+        else if (a % 100 >= 12 && a % 100 <= 15) return "рублей";
         else if (a % 10 > 1 && a % 10 < 5) return "рубля";
         else return "рублей";
     }
