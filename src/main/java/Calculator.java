@@ -4,17 +4,34 @@ public class Calculator {
 
     private int numberOfPeople;
     private double totalCost = 0;
-    private ArrayList<String> listOfProducts;
-    private ArrayList<Double> costOfProducts;
+    private final ArrayList<String> listOfProducts;
+    private final ArrayList<Double> costOfProducts;
 
-    Formater format = new Formater();
+    private final Formater format = new Formater();
 
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    Calculator(int numberOfPeople){
-        this.numberOfPeople = numberOfPeople;
-        listOfProducts = new ArrayList<String>();
-        costOfProducts = new ArrayList<Double>();
+    Calculator(){
+        listOfProducts = new ArrayList<>();
+        costOfProducts = new ArrayList<>();
+    }
+
+    public void start(){
+        System.out.print("Сколько человек будет делить счет: ");
+        this.numberOfPeople = format.scanInt();
+        addProduct();
+
+        while(true){
+            System.out.print("Желаете добавить ещё один товар? (Да/Завершить): ");
+            String str = scanner.next();
+            if(str.equalsIgnoreCase("Завершить")){
+                show();
+                break;
+            }
+            if(str.equalsIgnoreCase("Да")) {
+                addProduct();
+            }
+        }
     }
 
     public void addProduct(){
@@ -45,7 +62,8 @@ public class Calculator {
         for(int i = 0; i < listOfProducts.size(); i++){
             System.out.printf("%-10s %20.2f \n", listOfProducts.get(i), costOfProducts.get(i));
         }
-        System.out.printf("\nИтого с человека:%10.2f %-2s\n", result, rubl);
+        System.out.printf("\nИтого с человека:%10.2f %-2s\n(Поделено на %d человек)\n",
+                result, rubl, numberOfPeople);
     }
 
 }
